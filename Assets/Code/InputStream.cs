@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class InputStream : MonoBehaviour {
 
-	private Rect windowRect = new Rect((Screen.width/2)+150,50,Screen.width/3,Screen.height - 100);
+	private Rect windowRect = new Rect((Screen.width/2)+150,50,Screen.width/3,Screen.height - 300);
 	public string user = "";
 	public string messBox = "", messageToSend = "";
 	public GUISkin mySkin;

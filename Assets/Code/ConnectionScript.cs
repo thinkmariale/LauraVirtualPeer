@@ -5,7 +5,7 @@ using System;
 public class ConnectionScript : MonoBehaviour {
 
 	private string serverName = "" , maxUsers = "1",port = "25566";
-	private Rect windowRect = new Rect(0,0,400,400);
+	private Rect windowRect = new Rect(0,0,150,100);
 	public GUISkin mySkin;
 	// Use this for initialization
 	void Start () {
