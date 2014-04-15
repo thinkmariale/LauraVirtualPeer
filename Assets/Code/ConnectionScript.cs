@@ -1,12 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Net;
+using System.Net.Sockets;
+//using WoOzChatLayer;
 
 public class ConnectionScript : MonoBehaviour {
 
-	private string serverName = "" , maxUsers = "1",port = "25566";
+	private System.Net.Sockets.TcpListener chatServer;
+	private string serverIP = "localhost";
+	private string port = "5007";
+	private string userName = "Maria";
+	private int iport;
 	private Rect windowRect = new Rect(0,0,150,100);
+	public bool isConnected = false;
 	public GUISkin mySkin;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -20,27 +29,28 @@ public class ConnectionScript : MonoBehaviour {
 	private void OnGUI()
 	{
 		GUI.skin = mySkin;
-		windowRect = GUI.Window(0,windowRect,windowFunc,"Server");
-		if(Network.peerType == NetworkPeerType.Disconnected)
+		//windowRect = GUI.Window(0,windowRect,windowFunc,"Server");
+		if(!isConnected)
 		{
-			GUILayout.Label("Server Name");
-			serverName = GUILayout.TextField(serverName);
+			GUILayout.Label("Username");
+			userName = GUILayout.TextField(userName);
+			WoOzChatLayer.userName = userName;
+			GUILayout.Label("Server IP");
+			serverIP = GUILayout.TextField(serverIP);
 			GUILayout.Label("Port");
 			port = GUILayout.TextField(port);
-			GUILayout.Label("Max Users");
-			maxUsers = GUILayout.TextField(maxUsers);
+			iport = Int32.Parse(port);
 
-			if(GUILayout.Button("Create Server"))
+			if(GUILayout.Button("Connect"))
 			{
 				try{
-					Network.InitializeSecurity();
-					Network.InitializeServer(int.Parse(maxUsers),int.Parse(port),!Network.HavePublicAddress());
-					MasterServer.RegisterHost("testing VP",serverName);
+					WoOzChatLayer.connectToServer(serverIP, iport);
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
-					print("please type the info");
+					print("An exception occurred in WoOzChatLayer.connectToServer: " + e.ToString());
 				}
+				isConnected = true;
 			}
 
 		}
@@ -48,35 +58,14 @@ public class ConnectionScript : MonoBehaviour {
 		{
 			if(GUILayout.Button("Disconnect"))
 			{
-				Network.Disconnect();
+				WoOzChatLayer.disconnect();
+				isConnected = false;
 			}
 		}
 	}
 
 	private void windowFunc(int id) // id of window
 	{
-		if(GUILayout.Button("Refresh"))
-		{
-			MasterServer.RequestHostList("testing VP");
-		}
-		GUILayout.BeginHorizontal();
-		GUILayout.Box("Server Name");
-		GUILayout.EndHorizontal();
-
-		if(MasterServer.PollHostList().Length != 0)
-		{
-			HostData[] data = MasterServer.PollHostList();
-			foreach(HostData c in data)
-			{
-				GUILayout.BeginHorizontal();
-				GUILayout.Box(c.gameName);
-				if(GUILayout.Button("Connect") )
-				{
-					Network.Connect(c);
-				}
-				GUILayout.EndHorizontal();
-			}
-		}
 		GUI.DragWindow(new Rect(0,0,Screen.width,Screen.height));
 	}
 }
