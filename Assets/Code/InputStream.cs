@@ -6,8 +6,6 @@ using System.Threading;
 public class InputStream : MonoBehaviour {
 
 	private Rect windowRect = new Rect((Screen.width/2)+150,50,Screen.width/3,Screen.height - 300);
-	public delegate void recvMessagesDelegate();
-	public recvMessagesDelegate recvDelegate;
 	public string user = "";
 	public string messBox = "", messageToSend = "";
 	public string emotion = "happy";
@@ -20,7 +18,6 @@ public class InputStream : MonoBehaviour {
 
 		mySkin.textField.wordWrap = true;
 		mySkin.textField.clipping = TextClipping.Clip;
-		recvDelegate = new recvMessagesDelegate(this.recvMessages);
 	}
 	
 	
@@ -40,39 +37,27 @@ public class InputStream : MonoBehaviour {
 		messageToSend = GUILayout.TextField(messageToSend);
 		if(GUILayout.Button("Send",GUILayout.Width(75)))
 		{
-			if (WoOzChatLayer.isConnected())
+			if (WoOzChatLayer.isConnected()) {
 				WoOzChatLayer.sendMessage(messageToSend);
 				messBox += WoOzChatLayer.userName + ": " + messageToSend + "\n";
 
 				messageToSend = "";
+			} else {
+				messBox += WoOzChatLayer.userName + ": " + "not connected to a server" + "\n";
+			}
 		}
 		GUILayout.EndHorizontal();
 		
-		// start a listen thread, calls recvMessages
-		recvDelegate.BeginInvoke(null, null);
-		
-		GUI.DragWindow(new Rect(0,0,Screen.width,Screen.height));
-	}
-
-	private void recvMessages ()
-	{
-		int i = 0;
-		while (true) {
-			if (WoOzChatLayer.isConnected())
+		if (WoOzChatLayer.isConnected())
 			{
-				// blocks until next message is recieved
+				//should not block
 				string mess = WoOzChatLayer.getMessage(); 
-				messBox += mess + "\n";
+				if (mess != "")
+					messBox += mess + "\n";
 				emotion = WoOzChatLayer.getEmotion();
 			}
-			else {
-				Thread.Sleep(100);
-				i++;
-				if (i > 100) {
-					return;
-				}
-			}
-		}
+		
+		GUI.DragWindow(new Rect(0,0,Screen.width,Screen.height));
 	}
 	
 	/* message bw server and client*/
