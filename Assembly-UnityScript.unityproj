@@ -46,7 +46,15 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\VPanimator.js" />
+     <Compile Include="Assets\JSON Tests\UnityScript\Test_UnityScript.js" />
+     <None Include="Assets\JSON Tests\TroubleShoot.txt" />
+ <Reference Include="ICSharpCode.SharpZipLib">
+ <HintPath>Assets\plugins\ICSharpCode.SharpZipLib.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{4A11F67F-D2F7-C208-13EA-1528D456DC78}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

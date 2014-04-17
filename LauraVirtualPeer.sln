@@ -5,6 +5,8 @@ Project("{902C2D83-8B5E-F1B6-5781-2A4F0EA9B380}") = "LauraVirtualPeer", "Assembl
 EndProject
 Project("{902C2D83-8B5E-F1B6-5781-2A4F0EA9B380}") = "LauraVirtualPeer", "Assembly-CSharp.csproj", "{20454D27-9E73-532E-7731-002766211699}"
 EndProject
+Project("{902C2D83-8B5E-F1B6-5781-2A4F0EA9B380}") = "LauraVirtualPeer", "Assembly-UnityScript.unityproj", "{57B895AF-02CE-D6EF-6D59-35B19C6AB0EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,11 +21,15 @@ Global
 		{20454D27-9E73-532E-7731-002766211699}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20454D27-9E73-532E-7731-002766211699}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20454D27-9E73-532E-7731-002766211699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57B895AF-02CE-D6EF-6D59-35B19C6AB0EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57B895AF-02CE-D6EF-6D59-35B19C6AB0EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57B895AF-02CE-D6EF-6D59-35B19C6AB0EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57B895AF-02CE-D6EF-6D59-35B19C6AB0EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																						GlobalSection(MonoDevelopProperties) = preSolution
+																																GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
