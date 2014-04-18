@@ -48,7 +48,11 @@ public static class WoOzChatLayer {
 		Byte [] buffer = new Byte[1024];
 		NetworkStream stream = chatClient.GetStream();
 		int bytesread = 0;
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 0a963c3d69a58dbfcaf4024fd3ba876a0abab06d
 		if (stream.CanRead && stream.DataAvailable)
 			bytesread = stream.Read(buffer, 0, 1024);
 		else 
