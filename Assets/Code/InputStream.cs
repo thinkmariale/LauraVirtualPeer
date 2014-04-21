@@ -5,17 +5,17 @@ using System.Threading;
 
 public class InputStream : MonoBehaviour {
 
-	private Rect windowRect = new Rect((Screen.width/2)+150,50,Screen.width/3,Screen.height - 300);
+	private Rect windowRect = new Rect((Screen.width/2)+150,50,Screen.width/3,Screen.height -180);
 	public string user = "";
 	public string messBox = "", messageToSend = "";
 	public string emotion = "happy";
 	public GUISkin mySkin;
 
-	private Vector2 scrollPos = new Vector2(0,0);
+	private Vector2 scrollPos;
 
 	// Use this for initialization
 	void Start () {
-
+		scrollPos = new Vector2(scrollPos.x, Mathf.Infinity);
 		mySkin.textField.wordWrap = true;
 		mySkin.textField.clipping = TextClipping.Clip;
 	}
@@ -25,13 +25,16 @@ public class InputStream : MonoBehaviour {
 	{
 		GUI.skin = mySkin;
 		//if (NetworkPeerType.Disconnected != Network.peerType)
-			windowRect = GUI.Window(1, windowRect, InputStreamPlayer, "Chat");
+			windowRect = GUI.Window(1, windowRect, InputStreamPlayer, "Chat Box");
 
 	}
 
 	void InputStreamPlayer(int id)
 	{
-		GUILayout.Box(messBox,GUILayout.Height(350));
+		//scoll bar
+		scrollPos = GUILayout.BeginScrollView(scrollPos, GUILayout.Width (180), GUILayout.Height (220));
+		GUILayout.Box(messBox);
+		GUILayout.EndScrollView();
 
 		GUILayout.BeginHorizontal();
 		messageToSend = GUILayout.TextField(messageToSend);
@@ -47,7 +50,7 @@ public class InputStream : MonoBehaviour {
 			}
 		}
 		GUILayout.EndHorizontal();
-
+	
 		if (WoOzChatLayer.isConnected())
 			{
 				//should not block
