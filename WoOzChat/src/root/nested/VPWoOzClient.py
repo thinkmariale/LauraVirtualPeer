@@ -10,7 +10,7 @@ import threading
 import json
 
 targetuser = "laura"
-emotion = "happy"
+emotion = "idle"
 
 def print_help():
     print ("\nAvailiable commands:")
@@ -43,6 +43,9 @@ def parse_input(str):
             msg += word
             msg += " "
     msg = msg.rstrip() #remove trailing whitespace
+    
+    if (msg == ""):
+        return " ";
     return msg
 
 def read_output(s):
@@ -76,8 +79,8 @@ while 1:
     if msg == "end" or msg == "/end":
         break
     msg = parse_input(msg)
-    if msg != "":
-        s.send(json.dumps(["message", username, targetuser, msg, emotion]).encode())
+    s.send(json.dumps(["message", username, targetuser, msg, emotion]).encode())
+        
 
 readthr.join(10)
 s.close()

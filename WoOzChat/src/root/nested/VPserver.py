@@ -14,6 +14,8 @@ Created on Apr 4, 2014
 import socket
 import select
 import json
+from socket import error as SocketError
+import errno
 
 BUFFER_SIZE = 1024  # Normally 1024, but we want fast response
 
@@ -35,7 +37,14 @@ clientsockets = []
 messages = []
 
 def handle_read(s):
-    msg = s.recv(BUFFER_SIZE)
+    msg = ""
+    try:
+        msg = s.recv(BUFFER_SIZE)
+    except SocketError as e:
+        if e.errno != errno.ECONNRESET:
+            raise
+        pass
+        
     if len(msg) == 0:
         print ("a client socket has closed")
         # socket has disconnected
