@@ -9,13 +9,29 @@ Direct3D:
 Begin MonoManager ReloadAssembly
 Platform assembly: C:\Users\mariaalm\Documents\School\Semester 2\Education and Tech\Laura\app\LauraVirtualPeer\Demo\demo_Data\Managed\UnityEngine.dll (this message is harmless)
 Loading C:\Users\mariaalm\Documents\School\Semester 2\Education and Tech\Laura\app\LauraVirtualPeer\Demo\demo_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\mariaalm\Documents\School\Semester 2\Education and Tech\Laura\app\LauraVirtualPeer\Demo\demo_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\mariaalm\Documents\School\Semester 2\Education and Tech\Laura\app\LauraVirtualPeer\Demo\demo_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
 Platform assembly: C:\Users\mariaalm\Documents\School\Semester 2\Education and Tech\Laura\app\LauraVirtualPeer\Demo\demo_Data\Managed\Assembly-CSharp.dll (this message is harmless)
 Loading C:\Users\mariaalm\Documents\School\Semester 2\Education and Tech\Laura\app\LauraVirtualPeer\Demo\demo_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-- Completed reload, in  0.134 seconds
+Platform assembly: C:\Users\mariaalm\Documents\School\Semester 2\Education and Tech\Laura\app\LauraVirtualPeer\Demo\demo_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\mariaalm\Documents\School\Semester 2\Education and Tech\Laura\app\LauraVirtualPeer\Demo\demo_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\mariaalm\Documents\School\Semester 2\Education and Tech\Laura\app\LauraVirtualPeer\Demo\demo_Data\Managed\ICSharpCode.SharpZipLib.dll (this message is harmless)
+Loading C:\Users\mariaalm\Documents\School\Semester 2\Education and Tech\Laura\app\LauraVirtualPeer\Demo\demo_Data\Managed\ICSharpCode.SharpZipLib.dll into Unity Child Domain
+- Completed reload, in  0.040 seconds
 desktop: 2560x1440 59Hz; virtual: 4240x1440 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
+Platform assembly: C:\Users\mariaalm\Documents\School\Semester 2\Education and Tech\Laura\app\LauraVirtualPeer\Demo\demo_Data\Managed\System.dll (this message is harmless)
 The referenced script on this Behaviour is missing!
  
 (Filename:  Line: 1699)
+
+An exception occurred in WoOzChatLayer.connectToServer: System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it.
+
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP, Boolean requireSocketPolicy) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.TcpClient.Connect (System.Net.IPEndPoint remote_end_point) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.TcpClient.Connect (System.Net.IPAddress[] ipAddresses, Int32 port) [0x00000] in <filename unknown>:0 
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
 
