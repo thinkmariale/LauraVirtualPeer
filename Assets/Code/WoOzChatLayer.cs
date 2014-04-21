@@ -58,10 +58,16 @@ public static class WoOzChatLayer {
 			return "";
 
 		JSONArray arr = (JSONArray)JSON.Parse(System.Text.Encoding.UTF8.GetString(buffer));
+		string ret = "";
 		if (arr.Count == 5)
 			emotion = arr[4];
+			ret =  "Laura: " + arr[3];
 
-		string ret =  "Laura: " + arr[3].ToString();
+		if (arr.Count == 4)
+			emotion = arr[3];
+
+		if (ret.Equals("Laura:  "))
+			return "";
 		return ret;
 	}
 
