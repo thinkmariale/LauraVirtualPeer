@@ -8,7 +8,7 @@ using System.Net.Sockets;
 public class ConnectionScript : MonoBehaviour {
 
 	private System.Net.Sockets.TcpListener chatServer;
-	private string serverIP = "localhost";
+	private string serverIP = "127.0.0.1";
 	private string port = "5007";
 	private string userName = "Maria";
 	private int iport;
@@ -17,8 +17,10 @@ public class ConnectionScript : MonoBehaviour {
 	public GUISkin mySkin;
 	
 	// Use this for initialization
-	void Start () {
-	
+	IEnumerator Start () {
+		WWW www = new WWW(serverIP);
+		yield return www;
+
 	}
 	
 	// Update is called once per frame
@@ -43,6 +45,7 @@ public class ConnectionScript : MonoBehaviour {
 
 			if(GUILayout.Button("Connect"))
 			{
+
 				try{
 					WoOzChatLayer.connectToServer(serverIP, iport);
 				}

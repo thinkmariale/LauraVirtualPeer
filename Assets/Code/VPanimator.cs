@@ -4,6 +4,7 @@ using System.Collections;
 public class VPanimator : MonoBehaviour {
 
 	public Sprite[] idle;
+	public Sprite[] idleT;
 	public Sprite[] angry;
 	public Sprite[] confused;
 	public Sprite[] frustrated;
@@ -18,13 +19,22 @@ public class VPanimator : MonoBehaviour {
 	private SpriteRenderer spriteRenderer;
 	void Awake()
 	{
-		initSprites(idle,"Assets/ArtAssets/Idle/vp_idle_000");
-		initSprites(angry,"Assets/ArtAssets/Angry/vp_angry_000");
-		initSprites(confused,"Assets/ArtAssets/Confused/vp_confused_000");
-		initSprites(frustrated,"Assets/ArtAssets/Frustrated/vp_frustrated_000");
-		initSprites(happy,"Assets/ArtAssets/Happy/vp_happy_000");
-		initSprites(sad,"Assets/ArtAssets/Sad/vp_sad_000");
-		initSprites(surprised,"Assets/ArtAssets/Surprised/vp_surptised_000");
+		//initSprites(idle,"ArtAssets/Idle/v_idle_000");
+		idle = Resources.LoadAll<Sprite>("ArtAssets/Idle");
+		idleT = Resources.LoadAll<Sprite>("ArtAssets/Idle-typing");
+		angry = Resources.LoadAll<Sprite>("ArtAssets/Angry");
+		confused = Resources.LoadAll<Sprite>("ArtAssets/Confused");
+		frustrated = Resources.LoadAll<Sprite>("ArtAssets/Frustrated");
+		happy = Resources.LoadAll<Sprite>("ArtAssets/Happy");
+		sad = Resources.LoadAll<Sprite>("ArtAssets/Sad");
+		surprised = Resources.LoadAll<Sprite>("ArtAssets/Surprised");
+		//initSprites(idleT,"Assets/ArtAssets/Idle-typing/v_typing_000");
+		//initSprites(angry,"Assets/ArtAssets/Angry/v_angry_000");
+		//initSprites(confused,"Assets/ArtAssets/Confused/v_confused_000");
+		//initSprites(frustrated,"Assets/ArtAssets/Frustrated/v_frustrated_000");
+		//initSprites(happy,"Assets/ArtAssets/Happy/v_happy_000");
+		//initSprites(sad,"Assets/ArtAssets/Sad/v_sad_000");
+		//initSprites(surprised,"Assets/ArtAssets/Surprised/v_surprised_000");
 	/*	string j="";
 		for(int i=0;i<sad.Length;i++)
 		{
@@ -42,13 +52,19 @@ public class VPanimator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		spriteRenderer = renderer as SpriteRenderer;
-	
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 		int index = (int)(Time.timeSinceLevelLoad * framesPerSecond);
+
+		//make her type when message arrives and no emotion is being sent
+		if(WoOzChatLayer.getChat() != "" && WoOzChatLayer.emotion == "idle")
+		{
+			WoOzChatLayer.emotion = "type";
+		}
 		switch (WoOzChatLayer.emotion) {
 			case "angry":
 				index = index % angry.Length;
@@ -70,23 +86,25 @@ public class VPanimator : MonoBehaviour {
 				index = index % sad.Length;
 				spriteRenderer.sprite = sad[ index ];
 				break;
-			case "excited":
+			case "surprised":
 				index = index % surprised.Length;
 				spriteRenderer.sprite = surprised[ index ];
+				break;
+			case "type":
+				index = index % surprised.Length;
+				spriteRenderer.sprite = idleT[ index ];
 				break;
 			default:
 				index = index % idle.Length;
 				spriteRenderer.sprite = idle[ index ];
 				break;
 			}
-
-		
-
 	}
 
 	void initSprites(Sprite[]s,string path)
 	{
 		string j="";
+
 		for(int i=0;i<s.Length;i++)
 		{
 			j = i.ToString();
@@ -95,6 +113,7 @@ public class VPanimator : MonoBehaviour {
 
 			string path1 = path+j+".png";
 			Sprite ss = (Sprite)Resources.LoadAssetAtPath(path1, typeof(Sprite));
+
 			s[i] = ss;
 		}
 	}

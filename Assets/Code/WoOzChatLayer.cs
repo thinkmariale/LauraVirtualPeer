@@ -7,17 +7,25 @@ using SimpleJSON;
 
 public static class WoOzChatLayer {
 
-	static System.Net.Sockets.TcpClient chatClient;
+	//static System.Net.Sockets.TcpClient chatClient;
+	static TcpClient chatClient;
 	public static string userName = "";
 	public static string emotion = "idle";
-
+	public static string chat = "";
 	// initializes the chat client socket and attempts a tcp connection
 	// any calls to this function should be try/catch, as socket failure will throw an error
 	public static void connectToServer (string serverIP, int port)
 	{
-		chatClient = new System.Net.Sockets.TcpClient(serverIP, port);
+		bool pass = Security.PrefetchSocketPolicy(serverIP,port);
+		MonoBehaviour.print(pass);
+		//chatClient = new System.Net.Sockets.TcpClient(serverIP, port);
+		chatClient = new TcpClient(serverIP,port);
+
+		MonoBehaviour.print(chatClient);
+
 		if (chatClient.Connected)
 		{
+			MonoBehaviour.print("D");
 			string [] msg = { "connect", userName, "lesson1"};
 			NetworkStream stream = chatClient.GetStream();
 			Byte [] data = System.Text.Encoding.ASCII.GetBytes("[\"" + msg[0] + "\", \"" + msg[1] + "\", \"" + msg[2] + "\"]");
@@ -36,6 +44,7 @@ public static class WoOzChatLayer {
 
 		Byte[] data = System.Text.Encoding.ASCII.GetBytes(arr.ToString());
 		stream.Write(data, 0, data.Length);
+		chat = "";
 	}
 
 	public static NetworkStream getStream ()
@@ -68,6 +77,8 @@ public static class WoOzChatLayer {
 
 		if (ret.Equals("Laura:  "))
 			return "";
+
+		chat = ret;
 		return ret;
 	}
 
@@ -75,7 +86,10 @@ public static class WoOzChatLayer {
 	{
 		return emotion;
 	}
-
+	public static string getChat ()
+	{
+		return chat;
+	}
 	public static bool isConnected ()
 	{
 		if (chatClient != null)

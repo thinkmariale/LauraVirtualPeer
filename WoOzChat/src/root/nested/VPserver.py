@@ -12,6 +12,7 @@ Created on Apr 4, 2014
 # {string type = "message", string username, string targetuser, string message, [string emotion]}
 
 import socket
+import socketserver
 import select
 import json
 from socket import error as SocketError
@@ -19,6 +20,10 @@ import errno
 
 BUFFER_SIZE = 1024  # Normally 1024, but we want fast response
 
+# The policy that is sent to the clients.
+POLICY_DATA = """<?xml version="1.0"?><cross-domain-policy><allow-access-from domain="*" to-ports="*" /></cross-domain-policy>\0"""
+# The string the client has to send in order to receive the policy.
+POLICYREQUEST = "<policy-file-request/>"
 # Set socket timeout to 1 min
 socket.setdefaulttimeout(60)
 
@@ -36,6 +41,16 @@ clientsockets = []
 
 messages = []
 
+def send_policy(sock):
+    try:
+        print("e")
+       # s  = "<?xml version=\"1.0\"?><cross-domain-policy><allow-access-from domain=\"*\" to-ports=\"843\" /></cross-domain-policy>"
+        sock.send(bytes(POLICY_DATA, 'UTF-8')) #(json.dumps(s).encode())
+        print('policy sent to %s:%s' % sock.getpeername())
+    except socket.error:
+        print('can not send policy. socket error.')
+
+        
 def handle_read(s):
     msg = ""
     try:
@@ -52,15 +67,18 @@ def handle_read(s):
         clientsockets.remove(s)
     else:
         print (msg)
-        o = json.loads(msg.decode())
-        if type(o) is list:
-            msgtype = o[0]
-            if msgtype == "connect":
-                username = o[1]
-                clientuidmap[username] = s
-                messages.append(json.dumps(["message", "server", "laura", username + " has connected"]).encode())
-            elif msgtype == "message":
-                messages.append(msg)
+        if msg == b"<policy-file-request/>\x00":
+            send_policy(s)
+        else:
+            o = json.loads(msg.decode())
+            if type(o) is list:
+                msgtype = o[0]
+                if msgtype == "connect":
+                    username = o[1]
+                    clientuidmap[username] = s
+                    messages.append(json.dumps(["message", "server", "laura", username + " has connected"]).encode())
+                elif msgtype == "message":
+                    messages.append(msg)
 
 def handle_write(s):
     pass
@@ -74,7 +92,9 @@ def handle_connect(s):
 while 1:
     # Check sockets
     read, write, error = select.select([s]+clientsockets, clientsockets, [], 60)
+    
     for sock in read:
+        
         if sock is s:
             # New connection
             handle_connect(s)
