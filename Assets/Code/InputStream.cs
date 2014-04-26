@@ -5,14 +5,14 @@ using System.Threading;
 
 public class InputStream : MonoBehaviour {
 
-	private Rect windowRect = new Rect(730,50,200,300);
+	private Rect windowRect = new Rect(680,50,250,330);
 	public string user = "";
 	public string messBox = "", messageToSend = "";
 	public string emotion = "happy";
 	public GUISkin mySkin;
 
 	private Vector2 scrollPos;
-
+	private Vector2 scrollPos1;
 	// Use this for initialization
 	void Start () {
 		scrollPos = new Vector2(scrollPos.x, Mathf.Infinity);
@@ -29,20 +29,35 @@ public class InputStream : MonoBehaviour {
 			windowRect = GUI.Window(1, windowRect, InputStreamPlayer, "Chat Box");
 
 	}
-
+	void posEvent(int index){
+		// Force the scrollbar to the bottom position.
+		if(index == 0)
+			scrollPos.y = Mathf.Infinity;
+		else
+			scrollPos1.y = Mathf.Infinity;
+	}
 	void InputStreamPlayer(int id)
 	{
 		//scoll bar
-		scrollPos = GUILayout.BeginScrollView(scrollPos, GUILayout.Width (180), GUILayout.Height (220));
-		scrollPos.y = Mathf.Infinity;
+		scrollPos = GUILayout.BeginScrollView(scrollPos, GUILayout.Width (230), GUILayout.Height (220));
 		GUILayout.Box(messBox);
 		GUILayout.EndScrollView();
 
-		GUILayout.BeginHorizontal();
+		//GUILayout.BeginHorizontal();
+		scrollPos1 = GUILayout.BeginScrollView(scrollPos1, GUILayout.Width (230), GUILayout.Height (50));
 		messageToSend = GUILayout.TextField(messageToSend);
-	
-		bool enterP = false;
+		GUILayout.EndScrollView();
 
+		if (!Input.GetMouseButton (0)) 
+		{
+			if(GUI.skin.textField.CalcHeight (new GUIContent (messBox), 180) > 220)
+				posEvent(0);
+			if(GUI.skin.textField.CalcHeight (new GUIContent (messageToSend), 180) > 50)
+				posEvent(1);
+		}
+
+				
+		bool enterP = false;
 		if (Event.current.type == EventType.keyDown){//if(e == Event.KeyboardEvent(KeyCode.Return.ToString())){//(e.type == EventType.KeyDown && e.keyCode == KeyCode.Return){
 			print (Event.current.keyCode);
 			if(Event.current.keyCode == KeyCode.None)
@@ -62,7 +77,7 @@ public class InputStream : MonoBehaviour {
 			}
 		}
 
-		GUILayout.EndHorizontal();
+	//	GUILayout.EndHorizontal();
 
 		sendMessage();
 

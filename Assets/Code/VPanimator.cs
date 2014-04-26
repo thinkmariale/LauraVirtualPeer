@@ -15,7 +15,8 @@ public class VPanimator : MonoBehaviour {
 	public Sprite[] sprites;
 	public float framesPerSecond;
 
-
+	private float timer;
+	private bool isTimer;
 	private SpriteRenderer spriteRenderer;
 	void Awake()
 	{
@@ -35,29 +36,28 @@ public class VPanimator : MonoBehaviour {
 		//initSprites(happy,"Assets/ArtAssets/Happy/v_happy_000");
 		//initSprites(sad,"Assets/ArtAssets/Sad/v_sad_000");
 		//initSprites(surprised,"Assets/ArtAssets/Surprised/v_surprised_000");
-	/*	string j="";
-		for(int i=0;i<sad.Length;i++)
-		{
-			j = i.ToString();
-			if(i<10)
-				j = "0"+i.ToString();
-			print (j);
-			string path = "Assets/ArtAssets/Sad/vp_sad_000"+j+".png";
-			Sprite s = (Sprite)Resources.LoadAssetAtPath(path, typeof(Sprite));
-			sad[i] = s;
-			print (Resources.Load<Sprite>(path));
-		}*/
+
+
 	}
 
 	// Use this for initialization
 	void Start () {
 		spriteRenderer = renderer as SpriteRenderer;
-
+		timer = 300; ///3 seconds
+		isTimer = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		if (isTimer)
+		{
+			timer -= Time.deltaTime;
+			if(timer <=0)
+			{
+				timer = 300;
+				WoOzChatLayer.emotion = "idle_";
+			}
+		}
 		int index = (int)(Time.timeSinceLevelLoad * framesPerSecond);
 
 		//make her type when message arrives and no emotion is being sent
@@ -69,34 +69,42 @@ public class VPanimator : MonoBehaviour {
 			case "angry":
 				index = index % angry.Length;
 				spriteRenderer.sprite = angry[ index ];
+				isTimer = true;
 				break;
 			case "confused":
 				index = index % confused.Length;
 				spriteRenderer.sprite = confused[ index ];
+				isTimer = true;
 				break;
 			case "frustrated":
 				index = index % frustrated.Length;
 				spriteRenderer.sprite = frustrated[ index ];
+				isTimer = true;
 				break;
 			case "happy":
 				index = index % happy.Length;
 				spriteRenderer.sprite = happy[ index ];
-				break;
+				isTimer = true;	
+			break;
 			case "sad":
 				index = index % sad.Length;
 				spriteRenderer.sprite = sad[ index ];
+				isTimer = true;
 				break;
 			case "surprised":
 				index = index % surprised.Length;
 				spriteRenderer.sprite = surprised[ index ];
+				isTimer = true;
 				break;
 			case "type":
 				index = index % surprised.Length;
 				spriteRenderer.sprite = idleT[ index ];
+				isTimer = true;
 				break;
 			default:
 				index = index % idle.Length;
 				spriteRenderer.sprite = idle[ index ];
+				isTimer = false;
 				break;
 			}
 	}
