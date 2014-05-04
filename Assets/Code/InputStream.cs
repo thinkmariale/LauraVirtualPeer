@@ -5,7 +5,7 @@ using System.Threading;
 
 public class InputStream : MonoBehaviour {
 
-	private Rect windowRect = new Rect(680,50,250,330);
+	private Rect windowRect = new Rect(480,50,250,330);
 	public string user = "";
 	public string messBox = "", messageToSend = "";
 	public string emotion = "happy";

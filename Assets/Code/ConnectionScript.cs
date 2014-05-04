@@ -10,7 +10,7 @@ public class ConnectionScript : MonoBehaviour {
 	private System.Net.Sockets.TcpListener chatServer;
 	private string serverIP = "127.0.0.1";
 	private string port = "5007";
-	private string userName = "Maria";
+	private string userName = "Me";
 	private int iport;
 	private Rect windowRect = new Rect(0,0,150,100);
 	public bool isConnected = false;
