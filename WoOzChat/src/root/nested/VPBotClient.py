@@ -105,7 +105,7 @@ def read_output_respond(s):
                 respond(s, o[3])
 
 
-TCP_IP = '25.185.228.26'
+TCP_IP = '25.185.230.14'#'25.185.228.26'
 TCP_PORT = 5007
 BUFFER_SIZE = 1024
 

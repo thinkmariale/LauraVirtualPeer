@@ -58,7 +58,7 @@ def read_output(s):
             o = json.loads(msg.decode())
             print(o[1] + ": " + o[3])
 
-TCP_IP = '25.185.228.26'
+TCP_IP = '127.0.0.1'
 TCP_PORT = 5007
 BUFFER_SIZE = 1024
 

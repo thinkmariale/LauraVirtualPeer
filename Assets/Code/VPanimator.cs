@@ -69,10 +69,10 @@ public class VPanimator : MonoBehaviour {
 		int index = (int)(Time.timeSinceLevelLoad * framesPerSecond);
 
 		//make her type when message arrives and no emotion is being sent
-		if(!isTimer && WoOzChatLayer.getChat() != "" && WoOzChatLayer.emotion == "idle")
-		{
-			WoOzChatLayer.emotion = "type";
-		}
+		//if(!isTimer && WoOzChatLayer.getChat() != "" && WoOzChatLayer.emotion == "idle")
+		//{
+		//	WoOzChatLayer.emotion = "type";
+		//}
 
 		checkIfNew (WoOzChatLayer.emotion);
 		switch (WoOzChatLayer.emotion) {
@@ -112,7 +112,7 @@ public class VPanimator : MonoBehaviour {
 				if(timer == minTime)
 					setTimer(surprised.Length);
 				break;
-			case "type":
+			case "idletype":
 				index = index % idleT.Length;
 				spriteRenderer.sprite = idleT[ index ];
 				if(timer == minTime)

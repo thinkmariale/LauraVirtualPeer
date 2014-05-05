@@ -30,7 +30,7 @@ socket.setdefaulttimeout(60)
 # Create server socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Bind to host and port
-s.bind(('25.185.228.26', 5007))
+s.bind(('25.185.230.14', 5007))
 # Set socket to be non-blocking
 s.setblocking(0)
 # Queue max 5 connection requests
