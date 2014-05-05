@@ -9,7 +9,7 @@ import socket
 import threading
 import json
 
-targetuser = "laura"
+targetuser = "Me"
 emotion = "idle"
 
 def print_help():
@@ -58,7 +58,7 @@ def read_output(s):
             o = json.loads(msg.decode())
             print(o[1] + ": " + o[3])
 
-TCP_IP = '127.0.0.1' #'25.185.230.14' #'127.0.0.1'
+TCP_IP = '25.185.228.26'
 TCP_PORT = 5007
 BUFFER_SIZE = 1024
 
@@ -70,10 +70,12 @@ readthr.start()
 
 print("Enter Username: ")
 username = input()
+#username = "laura"
 s.send(json.dumps(["connect", username, "lesson1"]).encode())
 
 while 1:
     if (readthr.is_alive() == False):
+        print("disconnected from server")
         break
     msg = input()
     if msg == "end" or msg == "/end":
