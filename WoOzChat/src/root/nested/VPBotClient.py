@@ -59,6 +59,7 @@ def parse_input(str):
 
 
 currstate = 0
+counts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 def respond(s, usermsg):
     global currstate
@@ -72,7 +73,7 @@ def respond(s, usermsg):
         return
 
     #simulate typing
-    s.send(json.dumps(["message", "laura", targetuser, "", "idletyping"]).encode())
+    s.send(json.dumps(["message", "laura", targetuser, "", "idletype"]).encode())
     currstate = nextstate
     time.sleep(3)
     
@@ -85,10 +86,11 @@ def respond(s, usermsg):
     #if state does not require a response, traverse the tree to the next state
     while (VPResponses.states[currstate].replyneeded == "false"):
         nextstate = VPResponses.get_next_state(currstate, "")
-        s.send(json.dumps(["message", "laura", targetuser, "", "idletyping"]).encode())
+        s.send(json.dumps(["message", "laura", targetuser, "", "idletype"]).encode())
         currstate = nextstate
         time.sleep(2)
-        newmsg = VPResponses.states[currstate].statements[0]
+        newmsg = VPResponses.states[currstate].statements[counts[currstate]]
+		counts[currstate] += 1
         emotion = VPResponses.states[currstate].emotion
         s.send(json.dumps(["message", "laura", targetuser, newmsg, emotion]).encode())
 

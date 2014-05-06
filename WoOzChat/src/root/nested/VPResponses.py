@@ -161,7 +161,7 @@ state21 = state(["That's a good idea! I'll try to continue paying down my credit
                "false"
                )
 
-state22 = state(["Oh, also, what can lower my credit score?", "what else should I avoid?"],
+state22 = state(["Oh, also, what can lower my credit score?", "what else should I avoid?", "anything else?"],
                "idle",
                {"missed": 23, "late": 23, "payment": 23, "history": 23,
                 "balance": 24, "utilization": 24, "limit": 24,
