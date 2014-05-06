@@ -70,8 +70,8 @@ state7 = state(["Then let's get started!"],
 
 state8 = state(["So, for starters, what is a credit score used for?"],
                "idle",
-               {"loan": 9, "credit card": 9, "lease": 9, "renting": 9,
-                "rating": 10, "pay debt": 10,
+               {"loan": 9, "credit": 9, "card": 9, "lease": 9, "renting": 9,
+                "rating": 10, "pay": 10, "debt": 10, "assessment": 10, "ability": 10, 
                 "__default__": 10},
                "true"
                )
@@ -97,7 +97,7 @@ state11 = state(["Okay, I think it makes sense, thanks!"],
 state12 = state(["So what's good about having a good credit score?"],
                "idle",
                {"rent": 13, "lease": 13, "property": 13, "apartment":13,
-                "rate": 14, "car": 14, "loan": 14,
+                "rate": 14, "car": 14, "loan": 14, "interest": 14,
                 "__default__": 15},
                "true"
                )
@@ -136,9 +136,9 @@ state17 = state(["Are you sure? Isn't it below average?"],
 
 state18 = state(["What do I do to improve my credit score?", "What else can I do to improve my score?", "anything else?"],
                "idle",
-               {"open": 19, "new credit": 19, "new account": 19,
+               {"open": 19, "new": 19, "account": 19,
                 "on time": 20, "budget": 20, "payment history": 20,
-                "pay off": 21, "pay down": 21, "pay credit": 21, "utilization": 21,
+                "pay": 21, "off": 21, "down": 21, "credit": 21, "utilization": 21,
                 "__default__": 22},
                "true"
                )
@@ -249,6 +249,20 @@ states = [state0, state1, state2, state3, state4, state5, state6, state7, state8
           state30, state31, state32, state33, state34]
 
 def get_next_state(currstate, usermsg):
+    # universal rules for short messages
+    if (len(usermsg.split()) <= 3):
+        if ((usermsg.count("...") > 0) or
+            (usermsg.count("um") > 0) or
+            (usermsg.count("hold") > 0) or
+            (usermsg.count("sec") > 0) or
+            (usermsg.count("uh") > 0) or
+            (usermsg.count("idk") > 0) or
+            (usermsg.count("don't know") > 0) or
+            (usermsg.count("kk") > 0)
+            ):
+            return -1
+            
+    #apply rules for current state
     for word in usermsg.split():
         if (word in states[currstate].response):
             return states[currstate].response[word]
