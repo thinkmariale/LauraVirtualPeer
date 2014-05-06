@@ -121,11 +121,12 @@ while 1:
     if (readthr.is_alive() == False):
         print("disconnected from server")
         break
-    msg = input()
-    if msg == "end" or msg == "/end":
-        break
-    msg = parse_input(msg)
-    s.send(json.dumps(["message", "laura", targetuser, msg, emotion]).encode())
+    #msg = input()
+    msg = ""
+    #if msg == "end" or msg == "/end":
+    #    break
+    #msg = parse_input(msg)
+    #s.send(json.dumps(["message", "laura", targetuser, msg, emotion]).encode())
 
 readthr.join(10)
 s.close()
